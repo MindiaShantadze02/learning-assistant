@@ -1,0 +1,16 @@
+#homepage {
+    background-color: black;
+}
+
+.item {
+    background-color: lightblue;
+    padding: 20px;
+}
+
+.chat-wrapper {
+    background-color: lightgreen;
+}
+
+.chatWrapper-textfield {
+    width: 100%;
+}
