@@ -1,5 +1,4 @@
-const API_KEY = '';
-
+import { API_KEY } from "../data/keys";
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
@@ -9,5 +8,5 @@ export async function callGemini (text) {
     model: "gemini-2.0-flash",
     contents: text,
   });
-  console.log(response.text);
+  return response.text;
 }
