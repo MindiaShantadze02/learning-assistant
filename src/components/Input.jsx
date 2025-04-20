@@ -43,6 +43,7 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
       ev.preventDefault();
 
       if (userAnswer === '') return;
+      else if (selectedItems[quizItem.id]) return false;
       setReviewLoading(true);
       callGemini(reviewAnswer(quizItem.title, userAnswer)).then((reviewData) => {
         return reviewData;
@@ -61,6 +62,9 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
 
         setCorrectCount(prev => prev + score);
         setAiReview(review.review);
+        const updatedSelectedItems = {...selectedItems};
+        updatedSelectedItems[quizItem.id] = true;
+        setSelectedItems(updatedSelectedItems);
       });
     }
   

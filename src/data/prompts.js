@@ -6,7 +6,7 @@ const CREATE_QUIZ_INSTRUCTIONS = "CREATE A QUIZ BASED ON TOPIC ";
 
 const RATE_TEXT_ANSWERS = " RATE USERS ANSWER ON 1 if complete correct answer "+ 
 "OR 0.5 on partial correct answer OR 0 on incorrect answer BASED ON HOW CORRECT IT IS AND RESPOND IN FOLLOWING JSON FORMAT " +
-"{score: 1, review: 'Analyse users answer and give text review'} ";
+"{score: 1, review: 'Analyse users answer and give text review'} (ESCAPE SPECIAL CHARACTERS)";
 
 export const getPrompt = (topic) => {
     return CREATE_QUIZ_CONSTRAINTS + CREATE_QUIZ_INSTRUCTIONS + topic;
