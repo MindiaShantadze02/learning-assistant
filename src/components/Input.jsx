@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     FormControl,
     RadioGroup,
@@ -12,33 +12,55 @@ import { callGemini } from '../utils/apiCall';
 import { reviewAnswer } from '../data/prompts';
 import { formatJSONResponse } from '../utils/format';
 
-export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, setSelectedItems }) => {
+export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, setSelectedItems, resetBackgrounds }) => {
     const [backgroundColor, setBackgroundColor] = useState('#EEEEEE');
     const [textBackgroundColor, setTextBackgroundColor] = useState('#EEEEEE');
-    
-    const handleAnswerSelection = (ev) => {
-      ev.preventDefault();
-      if (ev.target.value === '') return;
-
-      console.log(quizItem);
-      if (selectedItems[quizItem.id]) return;
-      else {
-        if (ev.target.value.trim() === quizItem.correctAnswer.trim()) {
-          setBackgroundColor('#1DCD9F')
-          setCorrectCount(prev => prev + 1);  
-        } else {
-          setBackgroundColor('#E52020')
-        }
-
-        const updatedSelectedItems = {...selectedItems};
-        updatedSelectedItems[quizItem.id] = true;
-        setSelectedItems(updatedSelectedItems);
-      }
-    }
-
     const [userAnswer, setUserAnswer] = useState('');
     const [aiReview, setAiReview] = useState('');
     const [reviewLoading, setReviewLoading] = useState(false);
+    const [radioValue, setRadioValue] = useState('');
+    
+    useEffect(() => {
+        if (resetBackgrounds) {
+            setBackgroundColor('#EEEEEE');
+            setTextBackgroundColor('#EEEEEE');
+            setUserAnswer('');
+            setAiReview('');
+            setReviewLoading(false);
+            setRadioValue('');
+        }
+    }, [resetBackgrounds]);
+
+    const handleAnswerSelection = (ev) => {
+      ev.preventDefault();
+      if (ev.target.value === '') return;
+      
+      setRadioValue(ev.target.value);
+      
+      // Remove the previous answer's score if it exists
+      if (selectedItems[quizItem.id]) {
+        const wasCorrect = selectedItems[quizItem.id].isCorrect;
+        if (wasCorrect) {
+          setCorrectCount(prev => prev - 1);
+        }
+      }
+
+      // Set the new answer
+      if (ev.target.value.trim() === quizItem.correctAnswer.trim()) {
+        setBackgroundColor('#1DCD9F')
+        setCorrectCount(prev => prev + 1);
+      } else {
+        setBackgroundColor('#E52020')
+      }
+
+      const updatedSelectedItems = {...selectedItems};
+      updatedSelectedItems[quizItem.id] = {
+        value: ev.target.value,
+        isCorrect: ev.target.value.trim() === quizItem.correctAnswer.trim()
+      };
+      setSelectedItems(updatedSelectedItems);
+    }
+
     const handleAnswerSubmition = (ev) => {
       ev.preventDefault();
 
@@ -77,11 +99,20 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               name="radio-buttons-group"
+              value={radioValue}
             >
               {quizItem.answers.map((answer, i) =>
-                  <FormControlLabel value={answer} control={<Radio />} label={answer} onChange={handleAnswerSelection} key={i} />
+                  <FormControlLabel 
+                    value={answer} 
+                    disabled={selectedItems[quizItem.id] ? true : false} 
+                    control={<Radio />} 
+                    label={answer} 
+                    onChange={handleAnswerSelection} 
+                    key={i} 
+                  />
               )}
             </RadioGroup>
+            { selectedItems[quizItem.id] && <p style={{fontWeight: "700"}}>Correct answer: {quizItem.correctAnswer}</p>} 
           </FormControl>
         )
     } else if (inputType === 'text') {

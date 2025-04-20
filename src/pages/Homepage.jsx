@@ -9,6 +9,7 @@ export const Homepage = () => {
     const [chatData, setChatData] = useState('');
     const [prompt, setPrompt] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [displayReset, setDisplayReset] = useState(false);
 
     const handleClick = (ev) => {
         ev.preventDefault();
@@ -21,6 +22,7 @@ export const Homepage = () => {
         }).then((data) => {
             setChatData(data);
             setIsLoading(false);
+            setDisplayReset(true);
         });
     }
   return (
@@ -28,10 +30,10 @@ export const Homepage = () => {
         <Grid size={12} className='chatWrapper'>
             <form onSubmit={handleClick}>
                 <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
-                <Button type='submit' style={{backgroundColor: '#BF3131', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
+                <Button type='submit' style={{backgroundColor: '#3A59D1', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
             </form>
             <br />
-            {isLoading ? <p>Loading Quiz...</p> : <Quiz chatData={chatData} /> }
+            {isLoading ? <p>Loading Quiz...</p> : <Quiz displayReset={displayReset} chatData={chatData} /> }
         </Grid>
     </Grid>
   )
