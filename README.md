@@ -1,4 +1,21 @@
-# Learning assistant
-Learning assistant is a react app, that uses Gemini AI to generate quizes for users to test their knowledge on topics.
+# Learning Assistant
 
-I do recognize that code isn't greatest and could've been written in much better ways, like keeping styles in CSS files, using state management and custom hooks, but I wanted write the app as fast as possible.
+**Learning Assistant** is a React app that uses **Gemini AI** to generate quizzes for users to test their knowledge on various topics.
+
+> ⚠️ I know the code isn’t perfect.  
+> Could’ve used better practices like:
+> - Moving styles into CSS files  
+> - Using state management and custom hooks  
+> - Making it responsive  
+>
+> But the goal was speed — just get it built and working.
+
+---
+
+## 🚀 Setup
+
+1. Go to the `src/data/` directory.
+2. Create a file named `keys.js`.
+3. Paste in your Gemini API key like this:
+   ```js
+   export const API_KEY = "Your_Gemini_API_KEY";
