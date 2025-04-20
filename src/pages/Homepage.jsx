@@ -12,6 +12,9 @@ export const Homepage = () => {
 
     const handleClick = (ev) => {
         ev.preventDefault();
+
+        if (prompt === '') return;
+
         setIsLoading(true);
         callGemini(getPrompt(prompt)).then((resText) => {
             return resText;
@@ -22,17 +25,16 @@ export const Homepage = () => {
     }
   return (
     <Grid container spacing={1}>
-    <Grid size={3}>
-        <div className='item'>size=8</div>
-    </Grid>
+        <Grid size={3}>
+            <div style={{backgroundColor: '#EEEEEE', borderRadius: '5px', padding: '19px'}}>SIDE BAR</div>
+        </Grid>
     <Grid size={9} className='chatWrapper'>
         <form onSubmit={handleClick}>
-            <TextField className='chatWrapper-textfield' value={prompt} label="Outlined" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
-            <Button type='submit'>Generate Quiz</Button>
+            <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
+            <Button type='submit' style={{backgroundColor: '#BF3131', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
         </form>
         <br />
         {isLoading ? <p>Loading Quiz...</p> : <Quiz chatData={chatData} /> }
-
     </Grid>
     </Grid>
   )
