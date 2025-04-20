@@ -25,17 +25,14 @@ export const Homepage = () => {
     }
   return (
     <Grid container spacing={1}>
-        <Grid size={3}>
-            <div style={{backgroundColor: '#EEEEEE', borderRadius: '5px', padding: '19px'}}>SIDE BAR</div>
+        <Grid size={12} className='chatWrapper'>
+            <form onSubmit={handleClick}>
+                <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
+                <Button type='submit' style={{backgroundColor: '#BF3131', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
+            </form>
+            <br />
+            {isLoading ? <p>Loading Quiz...</p> : <Quiz chatData={chatData} /> }
         </Grid>
-    <Grid size={9} className='chatWrapper'>
-        <form onSubmit={handleClick}>
-            <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
-            <Button type='submit' style={{backgroundColor: '#BF3131', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
-        </form>
-        <br />
-        {isLoading ? <p>Loading Quiz...</p> : <Quiz chatData={chatData} /> }
-    </Grid>
     </Grid>
   )
 }

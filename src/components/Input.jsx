@@ -5,11 +5,16 @@ import {
     Radio,
     FormControlLabel,
     TextField,
-    FormLabel
+    FormLabel,
+    Grid
 } from '@mui/material';
+import { callGemini } from '../utils/apiCall';
+import { reviewAnswer } from '../data/prompts';
+import { formatJSONResponse } from '../utils/format';
 
 export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, setSelectedItems }) => {
     const [backgroundColor, setBackgroundColor] = useState('#EEEEEE');
+    const [textBackgroundColor, setTextBackgroundColor] = useState('#EEEEEE');
     
     const handleAnswerSelection = (ev) => {
       ev.preventDefault();
@@ -31,8 +36,32 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
       }
     }
 
+    const [userAnswer, setUserAnswer] = useState('');
+    const [aiReview, setAiReview] = useState('');
+    const [reviewLoading, setReviewLoading] = useState(false);
     const handleAnswerSubmition = (ev) => {
-      
+      ev.preventDefault();
+
+      if (userAnswer === '') return;
+      setReviewLoading(true);
+      callGemini(reviewAnswer(quizItem.title, userAnswer)).then((reviewData) => {
+        return reviewData;
+      }).then((data) => {
+        setReviewLoading(false);
+        const review = formatJSONResponse(data);
+        const score = Number(review.score);
+
+        if (score === 1) {
+          setTextBackgroundColor('#1DCD9F');
+        } else if (score === 0.5) {
+          setTextBackgroundColor("#FAFFC5");
+        } else if (score === 0) {
+          setTextBackgroundColor('#E52020');
+        }
+
+        setCorrectCount(prev => prev + score);
+        setAiReview(review.review);
+      });
     }
   
     inputType = inputType.toLowerCase();
@@ -53,10 +82,30 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
         )
     } else if (inputType === 'text') {
         return (
-          <form onSubmit={handleAnswerSubmition}>
-              <FormLabel id="outlined-basic">{quizItem.title}</FormLabel>
-              <TextField className='quizItem-input' id="outlined-basic" variant="outlined" value={quizItem.title} />
-          </form>
+          <div style={{ backgroundColor: textBackgroundColor, padding: '20px', borderRadius: '5px', margin: "20px 0 20px 0", width: '100%' }}>
+            <form onSubmit={handleAnswerSubmition}>
+                <FormLabel id="outlined-basic">{quizItem.title}</FormLabel>
+                <TextField
+                  className='quizItem-input'
+                  id="outlined-basic"
+                  variant="outlined"
+                  onChange={(ev) => setUserAnswer(ev.target.value)} 
+                  value={userAnswer}
+                />
+            </form>
+            <br />
+            {reviewLoading && (
+              <p>Review Loading...</p>
+            )}
+            {aiReview && !reviewLoading &&
+              (<>
+                <p>{aiReview}</p>
+                <br />
+                <p style={{fontWeight: "700"}}>Correct answer: {quizItem.correctAnswer}</p>
+              </>
+              )
+            }
+          </div>
         )
     }
 }

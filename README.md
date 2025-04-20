@@ -1,14 +1,4 @@
-# React + Vite
+# Learning assistant
+Learning assistant is a react app, that uses Gemini AI to generate quizes for users to test their knowledge on topics.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# learning-assistant
-# learning-assistant
+I do recognize that code isn't greatest and could've been written in much better ways, like keeping styles in CSS files, using state management and custom hooks, but I wanted write the app as fast as possible.
