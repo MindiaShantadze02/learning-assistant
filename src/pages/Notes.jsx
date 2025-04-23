@@ -29,7 +29,7 @@ export const Notes = () => {
                 <Button type='submit' style={{backgroundColor: '#FFD63A', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Notes</Button>
             </form>
             <div>
-                {isLoading ? <p>Loading...</p> : <pre>{notes}</pre>}
+                {isLoading ? <p>Loading...</p> : <pre style={{ textWrap: 'wrap' }}>{notes}</pre>}
             </div>
         </Grid>
     </Grid>

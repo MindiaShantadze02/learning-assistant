@@ -18,6 +18,7 @@ export const Homepage = () => {
 
         setIsLoading(true);
         callGemini(getPrompt(prompt)).then((resText) => {
+            console.log(resText);
             return resText;
         }).then((data) => {
             setChatData(data);
