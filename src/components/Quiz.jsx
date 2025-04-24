@@ -1,10 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { List, ListItem, Button } from '@mui/material';
 import { Input } from './Input';
-import { formatJSONResponse } from '../utils/format';
+import { 
+  AppContext
+} from '../context/AppContext';
 
-export const Quiz = ({ chatData, displayReset }) => {
-  const [formData, setFormData] = useState(formatJSONResponse(chatData));
+export const Quiz = ({ quizItems, displayReset }) => {
+  const {
+    state
+  } = useContext(AppContext);
   const [correctCount, setCorrectCount] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
   const [resetBackgrounds, setResetBackgrounds] = useState(0);
@@ -12,9 +16,9 @@ export const Quiz = ({ chatData, displayReset }) => {
   const resetQuiz = useCallback(() => {
     setSelectedItems({});
     setCorrectCount(0);
-    setFormData(formatJSONResponse(chatData));
+    setFormData(formatJSONResponse(quizItems));
     setResetBackgrounds(prev => prev + 1);
-  }, [chatData]);
+  }, [quizItems]);
 
   return (
     <div>
@@ -24,7 +28,7 @@ export const Quiz = ({ chatData, displayReset }) => {
         style={{backgroundColor: '#BF3131', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}
       >Reset</Button>) }
       <List className='chatWrapper-quiz'>
-        {formData.map((formItem) => (
+        {quizItems.map((formItem) => (
           <ListItem key={formItem.id}>
             <Input 
               quizItem={formItem}
@@ -37,7 +41,7 @@ export const Quiz = ({ chatData, displayReset }) => {
           </ListItem>
         ))}
       </List>
-      {formData.length > 0 && <h2>Score: {correctCount}/{formData.length}</h2>}
+      {quizItems.length > 0 && <h2>Score: {correctCount}/{quizItems.length}</h2>}
     </div>
     
   )

@@ -7,6 +7,7 @@ import {
   useNavigate
 } from 'react-router-dom'
 import { Notes } from "./pages/Notes";
+import { ContextProvider } from "./context/AppContext";
 
 function App() {
   const navigate = useNavigate();
@@ -23,17 +24,20 @@ function App() {
   }
 
   return (
-      <Container>
-        { 
-          selectedPage === 'quiz' ? 
-           <Button onClick={toggleSelectedPage}>Go To Notes</Button> :
-           <Button onClick={toggleSelectedPage}>Go To Quiz</Button>
-        }
-        <Routes>
-          <Route path='/'  element={<Homepage />} />
-          <Route path='/notes'  element={<Notes />} />
-        </Routes>
+    <ContextProvider>
+        <Container>
+          { 
+            selectedPage === 'quiz' ? 
+            <Button onClick={toggleSelectedPage}>Go To Notes</Button> :
+            <Button onClick={toggleSelectedPage}>Go To Quiz</Button>
+          }
+          <Routes>
+            <Route path='/'  element={<Homepage />} />
+            <Route path='/notes'  element={<Notes />} />
+          </Routes>
       </Container>
+    </ContextProvider>
+      
   )
 }
 

@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { callGemini } from '../utils/apiCall';
 import '../index.css';
 import { Grid, TextField, Button } from '@mui/material';
 import { Quiz } from '../components/Quiz';
 import { getPrompt } from '../data/prompts';
+import { AppContext } from '../context/AppContext';
+import { formatJSONResponse } from '../utils/format';
 
 export const Homepage = () => {
-    const [chatData, setChatData] = useState('');
+    const { 
+        quizItems,
+        setQuizItems
+     } = useContext(AppContext);
+
     const [prompt, setPrompt] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [displayReset, setDisplayReset] = useState(false);
@@ -21,7 +27,7 @@ export const Homepage = () => {
             console.log(resText);
             return resText;
         }).then((data) => {
-            setChatData(data);
+            setQuizItems(formatJSONResponse(data));
             setIsLoading(false);
             setDisplayReset(true);
         });
@@ -34,7 +40,7 @@ export const Homepage = () => {
                 <Button type='submit' style={{backgroundColor: '#3A59D1', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
             </form>
             <br />
-            {isLoading ? <p>Loading Quiz...</p> : <Quiz displayReset={displayReset} chatData={chatData} /> }
+            {isLoading ? <p>Loading Quiz...</p> : <Quiz displayReset={displayReset} quizItems={quizItems} /> }
         </Grid>
     </Grid>
   )

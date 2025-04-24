@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Grid, TextField, Button } from '@mui/material'
 import { createNotes } from '../data/prompts';
 import { callGemini } from '../utils/apiCall';
+import { AppContext } from '../context/AppContext';
 
 export const Notes = () => {
-    const [notes, setNotes] = useState('');
+    const {
+      notes,
+      setNotes
+    } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(false);
     const [prompt, setPrompt] = useState('');
     const handleSubmit = (ev) => {
