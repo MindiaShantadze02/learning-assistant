@@ -17,5 +17,5 @@ export const reviewAnswer = (question, answer) => {
 }
 
 export const createNotes = (lesson) => {
-    return "CREATE COMPREHENSIVE NOTES AS A NUMBERED LIST FROM FOLLOWING LESSON: " + lesson;
+    return "CREATE COMPREHENSIVE NOTES AS A NUMBERED LIST FROM FOLLOWING LESSON: " + lesson + " IF LESSON IS NOT PROVIDED CREATE WITHOUT IT";
 }

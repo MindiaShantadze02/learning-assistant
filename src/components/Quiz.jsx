@@ -7,16 +7,16 @@ import {
 
 export const Quiz = ({ quizItems, displayReset }) => {
   const {
-    state
+    selectedItems,
+    correctCount,
+    setSelectedItems,
+    setCorrectCount
   } = useContext(AppContext);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [selectedItems, setSelectedItems] = useState({});
   const [resetBackgrounds, setResetBackgrounds] = useState(0);
 
   const resetQuiz = useCallback(() => {
     setSelectedItems({});
     setCorrectCount(0);
-    setFormData(formatJSONResponse(quizItems));
     setResetBackgrounds(prev => prev + 1);
   }, [quizItems]);
 

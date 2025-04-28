@@ -33,15 +33,10 @@ export const ContextProvider = ({ children }) => {
         });
     }
 
-    const increasteCorrectCount = () => 
-        setState(prev => ({ ...prev, correctCount: prev.correctCount + 1 }));
-    
-    const decreaseCorrectCount = () => 
-        setState(prev => ({ ...prev, correctCount: prev.correctCount - 1 }));
+    const setCorrectCount = (correctCount) => setState(prev => ({ ...prev, correctCount }));
 
-    const setItemSelected = (quizItem) => {
+    const setSelectedItems = (newSelectedItems) => {
         setState(prev => {
-            const newSelectedItems = { ...prev.selectedItems, [quizItem]: true };
             return {
                 ...prev,
                 selectedItems: newSelectedItems
@@ -56,10 +51,9 @@ export const ContextProvider = ({ children }) => {
             correctCount: state.correctCount,
             selectedItems: state.selectedItems,
             setQuizItems,
-            setItemSelected,
+            setSelectedItems,
             setNotes,
-            increasteCorrectCount,
-            decreaseCorrectCount
+            setCorrectCount
         }}>
             {children}
         </AppContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { callGemini } from '../utils/apiCall';
 import '../index.css';
 import { Grid, TextField, Button } from '@mui/material';
@@ -10,12 +10,17 @@ import { formatJSONResponse } from '../utils/format';
 export const Homepage = () => {
     const { 
         quizItems,
-        setQuizItems
+        setQuizItems,
+        setSelectedItems
      } = useContext(AppContext);
 
     const [prompt, setPrompt] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [displayReset, setDisplayReset] = useState(false);
+
+    useEffect(() => {
+        if (quizItems.length > 0) setDisplayReset(true);
+    }, [quizItems])
 
     const handleClick = (ev) => {
         ev.preventDefault();
@@ -27,6 +32,7 @@ export const Homepage = () => {
             console.log(resText);
             return resText;
         }).then((data) => {
+            setSelectedItems({});
             setQuizItems(formatJSONResponse(data));
             setIsLoading(false);
             setDisplayReset(true);
