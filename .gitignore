@@ -24,3 +24,4 @@ client/*.sln
 client/*.sw?
 client/src/data/keys.js
 server/node_modules
+server/.env
