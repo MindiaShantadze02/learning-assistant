@@ -36,7 +36,18 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
 
         if (!selectedItems[quizItem.id]) setBackgroundColor('#EEEEEE')
         else if (selectedItems[quizItem.id].isCorrect) setBackgroundColor('#1DCD9F')
-        else setBackgroundColor('#E52020');
+        else if (selectedItems[quizItem.id].score) {
+          if (selectedItems[quizItem.id].score === 1) {
+            setTextBackgroundColor('#1DCD9F');
+          } else if (selectedItems[quizItem.id].score > 0 && selectedItems[quizItem.id].score < 1) {
+            setTextBackgroundColor("#FAFFC5");
+          }
+          else setBackgroundColor('#E52020');
+
+          setUserAnswer(selectedItems[quizItem.id].value);
+          setAiReview(selectedItems[quizItem.id].aiReview);
+          console.log(selectedItems[quizItem.id]);
+        }
     }, [resetBackgrounds]);
 
     const handleAnswerSelection = (ev) => {
@@ -88,10 +99,15 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
           setTextBackgroundColor('#E52020');
         }
 
-        setCorrectCount(correctCount => correctCount + score);
-        setAiReview(review.review);
         const updatedSelectedItems = {...selectedItems};
-        updatedSelectedItems[quizItem.id] = true;
+        updatedSelectedItems[quizItem.id] = {
+          value: userAnswer,
+          score,
+          aiReview: review.review
+        };
+
+        setCorrectCount(correctCount + score);
+        setAiReview(review.review); 
         setSelectedItems(updatedSelectedItems);
       });
     }
@@ -110,6 +126,10 @@ export const Input = ({ quizItem, inputType, setCorrectCount, selectedItems, set
               {quizItem.answers.map((answer, i) =>
                   <FormControlLabel 
                     value={answer}
+                    checked={
+                      selectedItems[quizItem.id]?.value &&
+                      selectedItems[quizItem.id].value === answer 
+                    }
                     disabled={selectedItems[quizItem.id] ? true : false} 
                     control={<Radio />} 
                     label={answer} 
