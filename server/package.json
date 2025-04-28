@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for learning assistant app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MindiaShantadze02/learning-assistant.git"
+  },
+  "author": "Mindia Shantadze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MindiaShantadze02/learning-assistant/issues"
+  },
+  "homepage": "https://github.com/MindiaShantadze02/learning-assistant#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
