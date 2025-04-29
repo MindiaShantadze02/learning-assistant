@@ -7,7 +7,8 @@ const initialState = {
     quizItems: [],
     notes: [],
     correctCount: 0,
-    selectedItems: {}
+    selectedItems: {},
+    categories: []
 }
 
 export const AppContext = createContext(initialState);
@@ -44,16 +45,27 @@ export const ContextProvider = ({ children }) => {
         });
     };
 
+    const setCategories = (newCategories) => {
+        setState(prev => {
+            return {
+                ...prev,
+                categories: newCategories
+            }
+        })
+    }
+
     return (
         <AppContext.Provider value={{ 
             notes: state.notes,
             quizItems: state.quizItems,
             correctCount: state.correctCount,
             selectedItems: state.selectedItems,
+            categories: state.categories,
             setQuizItems,
             setSelectedItems,
             setNotes,
-            setCorrectCount
+            setCorrectCount,
+            setCategories
         }}>
             {children}
         </AppContext.Provider>

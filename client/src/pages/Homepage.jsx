@@ -6,21 +6,35 @@ import { Quiz } from '../components/Quiz';
 import { getPrompt } from '../data/prompts';
 import { AppContext } from '../context/AppContext';
 import { formatJSONResponse } from '../utils/format';
+import { Topics } from '../components/Topics';
 
 export const Homepage = () => {
     const { 
         quizItems,
         setQuizItems,
-        setSelectedItems
+        setSelectedItems,
+        categories,
+        setCategories
      } = useContext(AppContext);
 
     const [prompt, setPrompt] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [displayReset, setDisplayReset] = useState(false);
+    const [displaySave, setDisplaySave] = useState(false);
 
     useEffect(() => {
-        if (quizItems.length > 0) setDisplayReset(true);
+        fetch('http://localhost:3001/categories').then((res) => {
+            return res.json();
+        }).then((data) => {
+            setCategories(data)
+        })
+
+        if (quizItems.length > 0) {
+            setDisplayReset(true);
+            setDisplaySave(true);
+        };
     }, [quizItems])
+
 
     const handleClick = (ev) => {
         ev.preventDefault();
@@ -29,7 +43,6 @@ export const Homepage = () => {
 
         setIsLoading(true);
         callGemini(getPrompt(prompt)).then((resText) => {
-            console.log(resText);
             return resText;
         }).then((data) => {
             setSelectedItems({});
@@ -38,16 +51,27 @@ export const Homepage = () => {
             setDisplayReset(true);
         });
     }
+
   return (
-    <Grid container spacing={1}>
-        <Grid size={12} className='chatWrapper'>
-            <form onSubmit={handleClick}>
-                <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
-                <Button type='submit' style={{backgroundColor: '#3A59D1', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
-            </form>
-            <br />
-            {isLoading ? <p>Loading Quiz...</p> : <Quiz displayReset={displayReset} quizItems={quizItems} /> }
-        </Grid>
+    <Grid spacing={1} container>
+        <Grid size={2} style={{padding: '15px', backgroundColor: 'lightblue'}} className='chatWrapper'>
+              {
+                categories.map((category) => (
+                    <div>
+                        <li>{category}</li>
+                        <Topics categoryName={category} />
+                    </div>
+                ))
+              }
+          </Grid>
+          <Grid size={10} className='chatWrapper'>
+        <form onSubmit={handleClick}>
+            <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
+            <Button type='submit' style={{backgroundColor: '#3A59D1', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
+        </form>
+        <br />
+        {isLoading ? <p>Loading Quiz...</p> : <Quiz displaySave={displaySave} displayReset={displayReset} quizItems={quizItems} /> }
+    </Grid>
     </Grid>
   )
 }
