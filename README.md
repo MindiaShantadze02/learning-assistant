@@ -8,7 +8,7 @@
 > - Using state management and custom hooks  
 > - Making it responsive  
 >
-> But the goal was speed — just get it built and working. Will refactor code in the future
+> But the goal was speed — just get it built and working. Will refactor code in the future.
 
 ---
 
