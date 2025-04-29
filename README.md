@@ -2,13 +2,13 @@
 
 **Learning Assistant** is a React app that uses **Gemini AI** to generate quizzes for users to test their knowledge on various topics.
 
-> ⚠️ I know the code isn’t perfect, but the goal was is to implement the app, so I don't care for the moment.
+> ⚠️ I know the code isn’t perfect, so I don't care for the moment.
 > Could’ve used better practices like:
 > - Moving styles into CSS files  
 > - Using state management and custom hooks  
 > - Making it responsive  
 >
-> But the goal was speed — just get it built and working.
+> But the goal was speed — just get it built and working. Will refactor code in the future
 
 ---
 
