@@ -90,8 +90,8 @@ export const Quiz = ({ quizItems, displayReset, displaySave }) => {
                   className='quizItem-input'
                   id="outlined-basic"
                   variant="outlined"
-                  onChange={(ev) => setTitle(ev.target.value)} 
-                  value={title}
+                  onChange={(ev) => setCategory(ev.target.value)} 
+                  value={category}
                 />
                 <br />
                 <FormLabel id="outlined-basic">Title</FormLabel>
@@ -100,8 +100,8 @@ export const Quiz = ({ quizItems, displayReset, displaySave }) => {
                   className='quizItem-input'
                   id="outlined-basic"
                   variant="outlined"
-                  onChange={(ev) => setCategory(ev.target.value)} 
-                  value={category}
+                  onChange={(ev) => setTitle(ev.target.value)} 
+                  value={title}
                 />
       </QuizModal>
       {quizItems.length > 0 && <h2>Score: {correctCount}/{quizItems.length}</h2>}
