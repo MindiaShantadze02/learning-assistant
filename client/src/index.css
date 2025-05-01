@@ -2,10 +2,6 @@
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-#homepage {
-    background-color: black;
-}
-
 .item {
     background-color: lightblue;
     padding: 20px;
@@ -21,4 +17,20 @@
 
 .quizItem-input {
     width: 100%;
+}
+
+.button {
+    border-radius: 5px;
+    padding: 15px !important;
+}
+
+.button-reset {
+    background-color: #BF3131 !important;
+    color: #FFF !important;
+}
+
+.button-save {
+    background-color: yellow !important;
+    color: #000 !important;
+    margin-left: 20px !important;
 }
