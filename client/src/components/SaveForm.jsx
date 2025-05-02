@@ -1,7 +1,8 @@
 import React from 'react'
 import {
     FormLabel,
-    TextField
+    TextField,
+    Typography
 } from '@mui/material';
 import { QuizModal } from './QuizModal';
 import { useQuizModal } from '../hooks/useQuizModal';
@@ -39,22 +40,24 @@ export const SaveForm = ({ openQuizModal, handleClose }) => {
 
   return (
     <QuizModal openQuizModal={openQuizModal} handleClose={handleClose} handleConfirm={handleConfirm}>
+        <Typography variant='h5'>Do you want to save the quiz?</Typography>
         <FormLabel id="outlined-basic">Category</FormLabel>
         <TextField
             className='quizItem-input'
+            name='category'
             id="outlined-basic"
             variant="outlined"
-            onChange={(ev) => setCategory(ev.target.value)} 
+            onChange={(ev) => setCategory(ev.target.value)}
             value={category}
         />
         <br />
         <FormLabel id="outlined-basic">Title</FormLabel>
             <TextField
-            name='category'
             className='quizItem-input'
+            name='title'
             id="outlined-basic"
             variant="outlined"
-            onChange={(ev) => setTitle(ev.target.value)} 
+            onChange={(ev) => setTitle(ev.target.value)}
             value={title}
         />
       </QuizModal>
