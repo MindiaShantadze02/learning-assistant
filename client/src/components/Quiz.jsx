@@ -2,7 +2,7 @@ import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { List, ListItem, Button, TextField, FormLabel } from '@mui/material';
 import {
   Input
-} from './Input';
+} from './Input/Input';
 import { 
   AppContext
 } from '../context/AppContext';
@@ -14,23 +14,15 @@ export const Quiz = ({ quizItems }) => {
     selectedItems,
     correctCount,
     setSelectedItems,
-    setCorrectCount
+    setCorrectCount,
+    resetQuiz
   } = useContext(AppContext);
-
-  const [resetBackgrounds, setResetBackgrounds] = useState(0);
 
   const {
     openQuizModal,
     handleOpen,
-    handleClose,
+    handleClose
   } = useQuizModal();
-
-
-  const resetQuiz = useCallback(() => {
-    setSelectedItems({});
-    setCorrectCount(0);
-    setResetBackgrounds(prev => prev + 1);
-  }, [quizItems]);
 
   return (
     <div>
@@ -51,7 +43,6 @@ export const Quiz = ({ quizItems }) => {
               selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
               inputType={formItem.type}
-              resetBackgrounds={resetBackgrounds}
             />
           </ListItem>
         ))}

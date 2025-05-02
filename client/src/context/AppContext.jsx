@@ -1,6 +1,7 @@
 import {
     createContext,
-    useState
+    useState,
+    useCallback
 } from 'react';
 
 const initialState = {
@@ -54,6 +55,11 @@ export const ContextProvider = ({ children }) => {
         })
     }
 
+    const resetQuiz = useCallback(() => {
+        setSelectedItems({});
+        setCorrectCount(0);
+      }, []);
+
     return (
         <AppContext.Provider value={{ 
             notes: state.notes,
@@ -65,7 +71,8 @@ export const ContextProvider = ({ children }) => {
             setSelectedItems,
             setNotes,
             setCorrectCount,
-            setCategories
+            setCategories,
+            resetQuiz
         }}>
             {children}
         </AppContext.Provider>

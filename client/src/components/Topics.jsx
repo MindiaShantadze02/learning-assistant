@@ -1,26 +1,33 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { AppContext } from '../context/AppContext';
-import { useQuizAPI } from '../hooks/useQuizAPI';
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import { useQuizAPI } from "../hooks/useQuizAPI";
 
 export const Topics = ({ categoryName }) => {
-    const [quizOptions, setQuizOptions] = useState([]);
+    const { setQuizItems, resetQuiz } = useContext(AppContext);
 
-    const {
-        fetchQuizOption,
-        fetchQuizItemsByTopic
-    } = useQuizAPI();
+  const [quizOptions, setQuizOptions] = useState([]);
 
-    useEffect(() => {
-        fetchQuizOption(categoryName).then((data) => {
-            setQuizOptions(data.topics);
-        })
-    }, [categoryName])
+  const { fetchQuizOption, fetchQuizItemsByTopic } = useQuizAPI();
+
+  useEffect(() => {
+    fetchQuizOption(categoryName).then((data) => {
+      setQuizOptions(data.topics);
+    });
+  }, [categoryName]);
+
+  const handleTopicSelection = async (categoryName, quizOption) => {
+    resetQuiz();
+    const newQuizItems = await fetchQuizItemsByTopic(categoryName, quizOption);
+    setQuizItems(newQuizItems.quiz.quizData);
+  }
 
   return (
     <ul>
-        { quizOptions.map((quizOption) => (
-            <li onClick={() => fetchQuizItemsByTopic(categoryName, quizOption)}>{quizOption}</li>
-        )) }
+      {quizOptions.map((quizOption) => (
+        <li onClick={() => handleTopicSelection(categoryName, quizOption)}>
+          {quizOption}
+        </li>
+      ))}
     </ul>
-  )
-}
+  );
+};

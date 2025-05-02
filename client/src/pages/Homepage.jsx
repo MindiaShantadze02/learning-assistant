@@ -7,6 +7,7 @@ import { getPrompt } from '../data/prompts';
 import { AppContext } from '../context/AppContext';
 import { formatJSONResponse } from '../utils/format';
 import { Topics } from '../components/Topics';
+import { v4 as uuid } from 'uuid';
 
 export const Homepage = () => {
     const { 
@@ -46,7 +47,14 @@ export const Homepage = () => {
             return resText;
         }).then((data) => {
             setSelectedItems({});
-            setQuizItems(formatJSONResponse(data));
+            const formattedData = formatJSONResponse(data).map((quizItem) => {
+                const newQuizItem = {...quizItem};
+                quizItem.id = uuid;
+
+                return newQuizItem
+            });
+            
+            setQuizItems(formattedData);
             setIsLoading(false);
             setDisplayReset(true);
         });
