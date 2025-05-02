@@ -34,3 +34,16 @@
     color: #000 !important;
     margin-left: 20px !important;
 }
+
+.input-radio {
+    padding: 50px !important;
+    border-radius: 5px !important;
+    width: 100% !important;
+}
+
+.input-text-wrapper {
+    padding: 20px !important;
+    border-radius: 5px !important;
+    margin: 20px 0 20px 0 !important;
+    width: 100% !important;
+}

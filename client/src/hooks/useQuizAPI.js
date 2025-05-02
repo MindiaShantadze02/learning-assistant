@@ -10,7 +10,6 @@ export const useQuizAPI = () => {
         };
 
         if (payload) requestObj.body = JSON.stringify(payload);
-        console.log(requestObj)
 
         const res = await fetch(`${URL}${endpoint}`, requestObj);
 
@@ -19,11 +18,24 @@ export const useQuizAPI = () => {
 
     const saveQuiz = async (quizInfo) => {
         const data = await apiRequest('/quizes', 'POST', quizInfo);
-        console.log(data);
         return data;
     }
 
+    const fetchQuizOption = async (category) => {
+        const res = await apiRequest(`/categories/${category}`);
+        const data = await res.json();
+        return data;
+    };
+
+    const fetchQuizItemsByTopic = async (category, topic) => {
+        const res = await apiRequest(`/categories/${category}/${topic}`);
+        const data = await res.json();
+        return data;
+    };
+
     return {
-        saveQuiz
+        saveQuiz,
+        fetchQuizOption,
+        fetchQuizItemsByTopic
     };
 }

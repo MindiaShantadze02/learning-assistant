@@ -9,7 +9,7 @@ import {
 import { useQuizModal } from '../hooks/useQuizModal';
 import { SaveForm } from './SaveForm';
 
-export const Quiz = ({ quizItems, displayReset, displaySave }) => {
+export const Quiz = ({ quizItems }) => {
   const {
     selectedItems,
     correctCount,

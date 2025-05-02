@@ -58,9 +58,9 @@ app.get('/categories/:categoryName', (req, res) => {
             return res.status(500).json({ error: 'Unable to read the category directory' });
         }
 
-        const quizzes = files.map((file) => file.replace('.json', ''));
+        const topics = files.map((file) => file.replace('.json', ''));
 
-        res.json({ category, quizzes });
+        res.json({ category, topics });
     });
 });
 

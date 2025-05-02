@@ -1,5 +1,5 @@
 const CREATE_QUIZ_CONSTRAINTS = "RESPONSE SHOULD BE AN JSON ARRAY THAT CAN BE PARSED IN JS IN FOLLOWING FORMAT " +
-"[{id: 1, title: 'question title', type: 'Radio', answers[...], correctAnswer: 'correct answer'}, {id: 2, type: 'text', title: 'discuss the topic', correctAnswer: 'correct answer'}], " +
+"[{id: uuid, title: 'question title', type: 'Radio', answers[...], correctAnswer: 'correct answer'}, {id: uuid, type: 'text', title: 'discuss the topic', correctAnswer: 'correct answer'}], " +
 "AND IT SHOULD CONTAIN ONLY RAW DATA AND NO MORE COMMENTS, "  +
 "RESPONSE SHOULD NOT CONTAIN CHARACTERS LIKE ` OR WORDS LIKE json. "
 const CREATE_QUIZ_INSTRUCTIONS = "CREATE A COMPREHENSIVE QUIZ BASED ON TOPIC ";
