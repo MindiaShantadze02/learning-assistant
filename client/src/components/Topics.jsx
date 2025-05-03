@@ -18,7 +18,8 @@ export const Topics = ({ categoryName }) => {
   const handleTopicSelection = async (categoryName, quizOption) => {
     resetQuiz();
     const newQuizItems = await fetchQuizItemsByTopic(categoryName, quizOption);
-    setQuizItems(newQuizItems.quiz.quizData);
+    console.log(newQuizItems);
+    setQuizItems(newQuizItems.quiz);
   }
 
   return (

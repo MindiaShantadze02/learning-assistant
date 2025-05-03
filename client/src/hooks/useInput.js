@@ -12,7 +12,7 @@ const backgroundColors = {
 };
 
 export const useInput = (quizItem) => {
-  const { selectedItems, setSelectedItems, setCorrectCount } = useContext(AppContext);
+  const { selectedItems, setSelectedItems, correctCount, setCorrectCount } = useContext(AppContext);
 
   const [backgroundColor, setBackgroundColor] = useState(backgroundColors.gray);
   const [textBackgroundColor, setTextBackgroundColor] = useState(backgroundColors.gray);
@@ -58,15 +58,10 @@ export const useInput = (quizItem) => {
 
     setRadioValue(value);
 
-    const prev = selectedItems[quizItem.id];
-    if (prev?.isCorrect) {
-      setCorrectCount(count => count - 1);
-    }
-
     const isCorrect = value.trim() === quizItem.correctAnswer.trim();
 
     if (isCorrect) {
-      setCorrectCount(count => count + 1);
+      setCorrectCount(correctCount + 1);
     }
 
     setSelectedItems({
@@ -89,7 +84,7 @@ export const useInput = (quizItem) => {
       const review = formatJSONResponse(data);
       const score = Number(review.score);
 
-      setCorrectCount(count => count + score);
+      setCorrectCount(correctCount + score);
 
       setSelectedItems({
         ...selectedItems,
