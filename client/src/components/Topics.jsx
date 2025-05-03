@@ -25,7 +25,7 @@ export const Topics = ({ categoryName }) => {
   return (
     <ul style={{ marginLeft: '20px', marginBottom: '10px' }}>
       {quizOptions.map((quizOption) => (
-        <li onClick={() => handleTopicSelection(categoryName, quizOption)}>
+        <li className='topic-item' onClick={() => handleTopicSelection(categoryName, quizOption)}>
           {quizOption}
         </li>
       ))}

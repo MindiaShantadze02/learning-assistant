@@ -52,3 +52,7 @@
 .quizItem {
     padding-left: 0 !important;
 }
+
+.topic-item:hover {
+    cursor: pointer;
+}
