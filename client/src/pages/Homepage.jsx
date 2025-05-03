@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { callGemini } from '../utils/apiCall';
 import '../index.css';
-import { Grid, TextField, Button } from '@mui/material';
+import { Grid, TextField, Button, Typography } from '@mui/material';
 import { Quiz } from '../components/Quiz';
 import { getPrompt } from '../data/prompts';
 import { AppContext } from '../context/AppContext';
@@ -63,20 +63,24 @@ export const Homepage = () => {
 
   return (
     <Grid spacing={1} container>
-        <Grid size={2} style={{padding: '15px', backgroundColor: 'lightblue'}} className='chatWrapper'>
+        <Grid size={3} style={{padding: '15px', height: '100vh', backgroundColor: '#F1F1F1'}} className='chatWrapper'>
+            <Typography variant='h5' style={{ marginTop: '40px', marginBottom: '10px' }}>Topics</Typography>
               {
                 categories.map((category) => (
                     <div>
-                        <li>{category}</li>
+                        <Typography marginLeft='20px'>{category}</Typography>
                         <Topics categoryName={category} />
                     </div>
                 ))
               }
           </Grid>
-          <Grid size={10} className='chatWrapper'>
+          <Grid size={9} className='chatWrapper'>
         <form onSubmit={handleClick}>
-            <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
-            <Button type='submit' style={{backgroundColor: '#3A59D1', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
+            <div style={{ margin: 'auto', width: '90%', marginTop: '100px' }}>
+                <Typography variant='h2'>Generate Quiz</Typography>
+                <TextField className='chatWrapper-textfield' value={prompt} label="Enter a topic" variant="outlined" name='prompt' onChange={(ev) => setPrompt(ev.target.value)} />
+                <Button type='submit' style={{backgroundColor: '#48A6A7', borderRadius: '5px', padding: '15px', marginTop: '10px', color: '#FFF'}}>Generate Quiz</Button>
+            </div>
         </form>
         <br />
         {isLoading ? <p>Loading Quiz...</p> : <Quiz displaySave={displaySave} displayReset={displayReset} quizItems={quizItems} /> }

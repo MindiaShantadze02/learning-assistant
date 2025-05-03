@@ -5,10 +5,10 @@ import { callGemini } from '../utils/apiCall';
 import { reviewAnswer } from "../data/prompts";
 
 const backgroundColors = {
-  gray: '#EEEEEE',
+  gray: '#F1F1F1',
   green: '#1DCD9F',
-  yellow: '#FAFFC5',
-  red: '#E52020'
+  yellow: '#FFF085',
+  red: '#F75A5A'
 };
 
 export const useInput = (quizItem) => {

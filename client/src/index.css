@@ -1,5 +1,6 @@
 * {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    margin: 0;
 }
 
 .item {
@@ -25,12 +26,12 @@
 }
 
 .button-reset {
-    background-color: #BF3131 !important;
+    background-color: #F75A5A !important;
     color: #FFF !important;
 }
 
 .button-save {
-    background-color: yellow !important;
+    background-color: #FFF085 !important;
     color: #000 !important;
     margin-left: 20px !important;
 }

@@ -25,7 +25,7 @@ export const Quiz = ({ quizItems }) => {
   } = useQuizModal();
 
   return (
-    <div>
+    <div style={{ margin: 'auto', width: '90%' }}>
       {
         quizItems.length > 0 && (
           <>
