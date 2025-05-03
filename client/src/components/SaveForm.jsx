@@ -13,7 +13,8 @@ import { AppContext } from '../context/AppContext';
 
 export const SaveForm = ({ openQuizModal, handleClose }) => {
     const {
-        quizItems
+        quizItems,
+        setCategories
     } = useContext(AppContext);
 
     const {
@@ -26,16 +27,18 @@ export const SaveForm = ({ openQuizModal, handleClose }) => {
       resetModal
     } = useQuizModal();
 
-    const { saveQuiz } = useQuizAPI();
+    const { saveQuiz, fetchCategories } = useQuizAPI();
 
     const handleConfirm = async () => {
         try {
-          const res = await saveQuiz({ title, category, quizData: quizItems })
-          console.log(res);
+          const res = await saveQuiz({ title, category, quizData: quizItems });
           resetModal();
         } catch(err) {
           console.log(err);
         }
+
+        const categories = await fetchCategories();
+        setCategories(categories);
     }
 
   return (

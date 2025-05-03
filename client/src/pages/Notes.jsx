@@ -20,7 +20,6 @@ export const Notes = () => {
       callGemini(createNotes(prompt)).then((resText) => {
           return resText;
       }).then((data) => {
-        console.log(data);
         setNotes(data);
         setIsLoading(false);
       });

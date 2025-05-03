@@ -16,19 +16,20 @@ app.post('/quizes', (req, res) => {
     
     const categoryPath = path.join(__dirname, `/data/quizes/${category ? category : 'default'}`);
     
-    fs.mkdir(categoryPath, (err) => {
+    fs.mkdir(categoryPath,{ recursive: true } , (err) => {
         if (err) console.log('The folder already exists');
 
         console.log('Category folder created successfully!');
-    }); 
-    const filePath = path.join(`${categoryPath}/${title}.json`);
+        
+        const filePath = path.join(`${categoryPath}/${title}.json`);
 
-    fs.writeFile(filePath, JSON.stringify(quizData), 'utf8', (err) => {
-        if (err) {
-          return res.status(500).json({ message: 'Failed to write to file', error: err });
-        }
-        res.status(200).json({ message: 'Content written to file successfully' });
-      });
+        fs.writeFile(filePath, JSON.stringify(quizData), 'utf8', (err) => {
+            if (err) {
+              return res.status(500).json({ message: 'Failed to write to file', error: err });
+            }
+            res.status(200).json({ message: 'Content written to file successfully' });
+          });
+    }); 
 });
 
 app.get('/categories', (req, res) => {
@@ -36,7 +37,7 @@ app.get('/categories', (req, res) => {
 
     fs.readdir(quizzesDir, (err, files) => {
         if (err) {
-          return res.status(500).json({ error: 'Unable to read the directories' });
+          return res.status(404).json([]);
         }
 
         const categories = files.filter(file => fs.statSync(path.join(quizzesDir, file)).isDirectory());

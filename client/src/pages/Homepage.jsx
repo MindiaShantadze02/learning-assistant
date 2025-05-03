@@ -8,6 +8,7 @@ import { AppContext } from '../context/AppContext';
 import { formatJSONResponse } from '../utils/format';
 import { Topics } from '../components/Topics';
 import { v4 as uuid } from 'uuid';
+import { useQuizAPI } from '../hooks/useQuizAPI';
 
 export const Homepage = () => {
     const { 
@@ -18,26 +19,26 @@ export const Homepage = () => {
         setCategories
      } = useContext(AppContext);
 
+     const { fetchCategories } = useQuizAPI();
+
     const [prompt, setPrompt] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [displayReset, setDisplayReset] = useState(false);
     const [displaySave, setDisplaySave] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:3001/categories').then((res) => {
-            return res.json();
-        }).then((data) => {
-            setCategories(data)
-        })
+        fetchCategories().then((categories) => {
+            setCategories(categories);
+        });
 
         if (quizItems.length > 0) {
             setDisplayReset(true);
             setDisplaySave(true);
-        };
-    }, [quizItems])
+          }
+    }, [quizItems]);
 
 
-    const handleClick = (ev) => {
+    const handleClick = async (ev) => {
         ev.preventDefault();
 
         if (prompt === '') return;
