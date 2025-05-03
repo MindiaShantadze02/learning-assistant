@@ -70,7 +70,8 @@ app.get('/categories/:categoryName/:quizName', (req, res) => {
     const quizPath = path.join(__dirname, 'data', 'quizes', categoryName, `${quizName}.json`);
 
     if (!fs.existsSync(quizPath)) {
-        return res.status(404).json({ error: 'Quiz not found' });
+        console.log(quizPath);
+        return res.status(404).json([]);
     }
 
     fs.readFile(quizPath, 'utf8', (err, data) => {
