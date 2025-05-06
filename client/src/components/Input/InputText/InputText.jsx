@@ -1,6 +1,6 @@
 import React from "react";
 import { useInput } from "../../../hooks/useInput";
-import { FormLabel, TextField } from "@mui/material";
+import { FormLabel, TextField, Button, Box } from "@mui/material";
 
 export const InputText = ({ quizItem }) => {
     const {
@@ -18,13 +18,30 @@ export const InputText = ({ quizItem }) => {
     >
       <form onSubmit={handleAnswerSubmition}>
         <FormLabel id="outlined-basic">{quizItem.title}</FormLabel>
-        <TextField
-          className="quizItem-input"
-          id="outlined-basic"
-          variant="outlined"
-          onChange={(ev) => setUserAnswer(ev.target.value)}
-          value={userAnswer}
-        />
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', mt: 1 }}>
+          <TextField
+            className="quizItem-input"
+            id="outlined-basic"
+            variant="outlined"
+            onChange={(ev) => setUserAnswer(ev.target.value)}
+            value={userAnswer}
+            placeholder="Type your answer here..."
+            disabled={!!aiReview}
+          />
+          <Button 
+            type="submit" 
+            variant="contained" 
+            disabled={!userAnswer || !!aiReview}
+            sx={{ 
+              backgroundColor: '#48A6A7',
+              '&:hover': {
+                backgroundColor: '#3d8b8c'
+              }
+            }}
+          >
+            Submit
+          </Button>
+        </Box>
       </form>
       <br />
       {reviewLoading && <p>Review Loading...</p>}

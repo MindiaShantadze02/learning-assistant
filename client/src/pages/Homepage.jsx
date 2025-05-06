@@ -50,7 +50,7 @@ export const Homepage = () => {
             setSelectedItems({});
             const formattedData = formatJSONResponse(data).map((quizItem) => {
                 const newQuizItem = {...quizItem};
-                quizItem.id = uuid;
+                quizItem.id = uuid();
 
                 return newQuizItem
             });
