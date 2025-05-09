@@ -1,6 +1,6 @@
 import React from "react";
 import { useInput } from "../../../hooks/useInput";
-import { FormLabel, TextField, Button, Box } from "@mui/material";
+import { FormLabel, TextField, Button, Box, TextareaAutosize } from "@mui/material";
 
 export const InputText = ({ quizItem }) => {
     const {
@@ -19,13 +19,13 @@ export const InputText = ({ quizItem }) => {
       <form onSubmit={handleAnswerSubmition}>
         <FormLabel id="outlined-basic">{quizItem.title}</FormLabel>
         <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', mt: 1 }}>
-          <TextField
-            className="quizItem-input"
-            id="outlined-basic"
-            variant="outlined"
+          <TextareaAutosize
+            className='quizItem-input'
+            aria-label="user-answer"
             onChange={(ev) => setUserAnswer(ev.target.value)}
-            value={userAnswer}
+            minRows={3}
             placeholder="Type your answer here..."
+            style={{ width: 200 }}
             disabled={!!aiReview}
           />
           <Button 

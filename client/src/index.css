@@ -17,7 +17,12 @@
 }
 
 .quizItem-input {
-    width: 100%;
+    width: 100% !important;
+    border-radius: 5px !important;
+}
+
+.quizItem-input::placeholder {
+    font-size: 16px !important;
 }
 
 .button {
