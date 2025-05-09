@@ -74,6 +74,7 @@ import { useState, useEffect, useContext } from "react";
          callGemini(reviewAnswer(quizItem.title, userAnswer)).then((reviewData) => {
            return reviewData;
          }).then((data) => {
+          console.log(data);
            setReviewLoading(false);
            const review = formatJSONResponse(data);
            const score = Number(review.score);
@@ -87,6 +88,7 @@ import { useState, useEffect, useContext } from "react";
            }
    
            const updatedSelectedItems = {...selectedItems};
+           console.log(review.review);
            updatedSelectedItems[quizItem.id] = {
              value: userAnswer,
              score,
