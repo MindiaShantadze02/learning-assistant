@@ -1,0 +1,23 @@
+services:
+  client:
+    build: 
+      context: client
+    ports:
+      - 3000:3000
+    restart: always
+    networks:
+      - learning-assistant
+    depends_on:
+      - server
+  server:
+    build:
+      context: server
+    restart: always
+    volumes:
+      - ./server/data:/app/data
+    networks:
+      - learning-assistant
+    ports:
+      - 3001:3001
+networks:
+  learning-assistant:
