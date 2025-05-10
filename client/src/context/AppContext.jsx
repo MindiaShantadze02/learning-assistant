@@ -8,7 +8,8 @@ const initialState = {
     quizItems: [],
     correctCount: 0,
     selectedItems: {},
-    categories: []
+    categories: [],
+    isError: false
 }
 
 export const AppContext = createContext(initialState);
@@ -45,6 +46,10 @@ export const ContextProvider = ({ children }) => {
         })
     }
 
+    const setError = (isError) => {
+        setState(prev => ({...prev, isError }));
+    }
+
     const resetQuiz = useCallback(() => {
         setSelectedItems({});
         setCorrectCount(0);
@@ -56,10 +61,12 @@ export const ContextProvider = ({ children }) => {
             correctCount: state.correctCount,
             selectedItems: state.selectedItems,
             categories: state.categories,
+            isError: state.isError,
             setQuizItems,
             setSelectedItems,
             setCorrectCount,
             setCategories,
+            setError,
             resetQuiz
         }}>
             {children}

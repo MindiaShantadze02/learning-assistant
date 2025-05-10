@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 import { useQuizAPI } from "../hooks/useQuizAPI";
 
 export const Topics = ({ categoryName }) => {
-    const { setQuizItems, resetQuiz, categories } = useContext(AppContext);
+    const { setQuizItems, resetQuiz, categories, setError } = useContext(AppContext);
 
   const [quizOptions, setQuizOptions] = useState([]);
 
@@ -20,6 +20,7 @@ export const Topics = ({ categoryName }) => {
     const newQuizItems = await fetchQuizItemsByTopic(categoryName, quizOption);
     console.log(newQuizItems);
     setQuizItems(newQuizItems.quiz);
+    setError(false);
   }
 
   return (
