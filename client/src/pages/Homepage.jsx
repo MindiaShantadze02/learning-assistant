@@ -96,6 +96,7 @@ export const Homepage = () => {
             <Typography variant="h2">Generate Quiz</Typography>
             <TextField
               className="chatWrapper-textfield"
+              data-test="inptSearchField"
               value={prompt}
               label="Enter a topic"
               variant="outlined"
@@ -104,6 +105,7 @@ export const Homepage = () => {
             />
             <Button
               type="submit"
+              data-test="btnGenerateQuiz"
               style={{
                 backgroundColor: "#48A6A7",
                 borderRadius: "5px",

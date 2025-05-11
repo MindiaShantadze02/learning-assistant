@@ -26,3 +26,4 @@ client/src/data/keys.js
 server/node_modules
 server/.env
 server/data/
+testing/node_modules

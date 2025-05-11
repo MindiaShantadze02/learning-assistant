@@ -37,7 +37,7 @@ export const Quiz = ({ quizItems }) => {
       }
       <List className='chatWrapper-quiz'>
         {quizItems.map((formItem) => (
-          <ListItem key={formItem.id} className='quizItem'>
+          <ListItem key={formItem.id} className='quizItem' data-test='divQuizItem'>
             <Input 
               quizItem={formItem}
               setCorrectCount={setCorrectCount}
