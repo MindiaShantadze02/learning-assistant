@@ -11,6 +11,7 @@ export const InputAnswer = ({ answer, quizItem, handleAnswerSelection }) => {
   return (
     <FormControlLabel
       value={answer}
+      data-test='lblAnswerOption'
       control={
         <Radio
           checked={isSelected}
