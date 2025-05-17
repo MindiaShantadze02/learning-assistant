@@ -3,11 +3,12 @@ const testData = require('../fixtures/testData.json');
 const { Search } = require('../pom/Search');
 const { QuizItem } = require('../pom/QuizItem');
 const { formatJSONResponse } = require('../utils/utils');
+const { EN_localhost } = require('../environments/environments.json');
 
 
 describe('Main quiz test suite', () => {
     beforeEach(() => {
-        cy.visit('/');
+        cy.visit(EN_localhost);
     })
 
     it('Verify that user is able to generate a quiz', () => {

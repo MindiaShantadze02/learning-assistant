@@ -2,6 +2,7 @@ services:
   client:
     build: 
       context: client
+    container_name: learning-assistant-client
     volumes:
       - ./client/:/app
       - /app/node_modules

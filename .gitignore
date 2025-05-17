@@ -27,3 +27,4 @@ server/node_modules
 server/.env
 server/data/
 testing/node_modules
+testing/cypress/screenshots
